@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6917441F-E322-470C-B3FA-88EB8760155F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{66F83DE5-6C37-4F33-B32D-99BBF188732F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileFoodPermitServiceTests", "tests\MobileFoodPermitAPITests\MobileFoodPermitServiceTests.csproj", "{0E539B1D-EADA-4DE5-A361-46FCFC5B61D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileFoodPermits.Service", "src\MobileFoodPermits.Service\MobileFoodPermits.Service.csproj", "{D65B4A0B-3EAA-4867-8544-B827DA11B025}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{0E189B1F-711C-4B8A-98DF-83159D876714}"
+	ProjectSection(SolutionItems) = preProject
+		data\Mobile_Food_Permit_Map.csv = data\Mobile_Food_Permit_Map.csv
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E539B1D-EADA-4DE5-A361-46FCFC5B61D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E539B1D-EADA-4DE5-A361-46FCFC5B61D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E539B1D-EADA-4DE5-A361-46FCFC5B61D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E539B1D-EADA-4DE5-A361-46FCFC5B61D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D65B4A0B-3EAA-4867-8544-B827DA11B025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D65B4A0B-3EAA-4867-8544-B827DA11B025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D65B4A0B-3EAA-4867-8544-B827DA11B025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D65B4A0B-3EAA-4867-8544-B827DA11B025}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E539B1D-EADA-4DE5-A361-46FCFC5B61D8} = {66F83DE5-6C37-4F33-B32D-99BBF188732F}
+		{D65B4A0B-3EAA-4867-8544-B827DA11B025} = {6917441F-E322-470C-B3FA-88EB8760155F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F660C1C8-8BFB-4B8C-9CC8-C6C5769FD036}
+	EndGlobalSection
+EndGlobal
