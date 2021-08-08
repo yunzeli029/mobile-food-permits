@@ -1,18 +1,19 @@
 using Microsoft.Extensions.DependencyInjection;
-using MobileFoodPermits.File.DependencyInjection;
+using MobileFoodPermits.File;
 using MobileFoodPermits.File.Models;
 using MobileFoodPermits.File.Services;
 using MobileFoodPermits.File.Services.Interfaces;
+using NetTopologySuite.Geometries;
 using System.IO;
 using System.Linq;
 using Xunit;
 
 namespace MobileFoodPermits.FileTests
 {
-    public class PermitCollectionRepositoryTests
+    public class FoodPermitCollectionRepositoryTests
     {
-        private readonly IPermitCollectionRepository _permitCollectionRepository;
-        public PermitCollectionRepositoryTests()
+        private readonly IFoodPermitCollectionRepository _permitCollectionRepository;
+        public FoodPermitCollectionRepositoryTests()
         {
             string workingDirectory = Directory.GetCurrentDirectory();
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
@@ -24,28 +25,29 @@ namespace MobileFoodPermits.FileTests
             };
 
             var sp = new ServiceCollection()
-                .AddFilePermits(fileSettings)
+                .AddFoodPermitFileServices(fileSettings)
                 .BuildServiceProvider();
 
-            _permitCollectionRepository = sp.GetService<IPermitCollectionRepository>();
+            _permitCollectionRepository = sp.GetService<IFoodPermitCollectionRepository>();
         }
         [Fact]
         public void CanResolve()
         {
             Assert.NotNull(_permitCollectionRepository);
-            Assert.IsType<PermitCollectionRepository>(_permitCollectionRepository);
+            Assert.IsType<FoodPermitCollectionRepository>(_permitCollectionRepository);
         }
 
         [Fact]
         public void GivenCorrectFile_Get_ShouldReturnsTwoResultsAndValidFirstPermit()
         {
-            var collection = _permitCollectionRepository.Get();
+            var collection = _permitCollectionRepository.GetFoodPermitCollection();
 
-            Assert.Equal(2, collection.PermitInfos.Count());
+            Assert.Equal(2, collection.FoodPermits.Count());
 
-            var first = collection.PermitInfos.First();
-
+            var first = collection.FoodPermits.First();
+            var expectedCoordidate = new Coordinate(37.78844616, -122.3986412);
             Assert.Equal(1524388, first.LocationId);
+            Assert.Equal(expectedCoordidate, first.Location);
         }
     }
 }

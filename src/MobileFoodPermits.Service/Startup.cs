@@ -4,8 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MobileFoodPermits.File;
+using MobileFoodPermits.File.Models;
+using MobileFoodPermits.Models.FoodPermitInfo;
+using MobileFoodPermits.Service.Infrastructure;
+using MobileFoodPermits.Service.Validators;
 
-namespace MobileFoodPermitAPI
+namespace MobileFoodPermits.Service
 {
     public class Startup
     {
@@ -20,8 +25,25 @@ namespace MobileFoodPermitAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers()
-                .AddFluentValidation();
+                .AddTransient<ExceptionFilter>()
+                .AddControllers(options =>
+                {
+                    options.Filters.AddService<ExceptionFilter>();
+                })
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Converters.Add(new CoordinateJsonConverter());
+                })
+                .AddFluentValidation(fv =>
+                    fv
+                    .RegisterValidatorsFromAssemblyContaining<FilteredRequestDtoValidator>()
+                    .RegisterValidatorsFromAssemblyContaining<ItemValueFilterDtoValidator>()
+                );
+
+            var fileSettings = new FileSettings();
+            Configuration.GetSection("FileSettings").Bind(fileSettings);
+
+            services.AddFoodPermitFileServices(fileSettings);
 
             services.AddHealthChecks();
         }

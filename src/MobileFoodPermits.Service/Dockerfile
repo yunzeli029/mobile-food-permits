@@ -4,16 +4,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["src/MobileFoodPermitAPI/MobileFoodPermitAPI.csproj", "src/MobileFoodPermitAPI/"]
-RUN dotnet restore "src/MobileFoodPermitAPI/MobileFoodPermitAPI.csproj"
+COPY ["src/MobileFoodPermits.Service/MobileFoodPermits.Service.csproj", "src/MobileFoodPermits.Service/"]
+RUN dotnet restore "src/MobileFoodPermits.Service/MobileFoodPermits.Service.csproj"
 COPY . .
-WORKDIR "/src/src/MobileFoodPermitAPI"
-RUN dotnet build "MobileFoodPermitAPI.csproj" -c Release -o /app/build
+WORKDIR "/src/src/MobileFoodPermits.Service"
+RUN dotnet build "MobileFoodPermits.Service.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MobileFoodPermitAPI.csproj" -c Release -o /app/publish
+RUN dotnet publish "MobileFoodPermits.Service.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MobileFoodPermitAPI.dll"]
+ENTRYPOINT ["dotnet", "MobileFoodPermits.Service.dll"]

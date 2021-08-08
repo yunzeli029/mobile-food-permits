@@ -11,6 +11,5 @@ namespace MobileFoodPermits.File.Models
 
         public string GetFilePath()
             => Path.Combine(BasePath, FileName);
-
     }
 }
